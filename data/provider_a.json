@@ -1,0 +1,526 @@
+{
+ "provider": "A",
+ "generated_at": "2026-11-09T21:00:00+05:30",
+ "quotes": [
+  {
+   "registration": "WB02AB1234",
+   "status": "QUOTED",
+   "vehicle": "MARUTI SWIFT VXI",
+   "plan": "Essential",
+   "coverage": "COMPREHENSIVE",
+   "idv": 325000,
+   "base_premium": 9965,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "WB02AB1234",
+   "status": "QUOTED",
+   "vehicle": "MARUTI SWIFT VXI",
+   "plan": "Comprehensive Plus",
+   "coverage": "COMPREHENSIVE",
+   "idv": 325000,
+   "base_premium": 11346,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [
+    "ZERO_DEP",
+    "RSA"
+   ],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "WB02AB1234",
+   "status": "QUOTED",
+   "vehicle": "MARUTI SWIFT VXI",
+   "plan": "Comprehensive Plus",
+   "coverage": "COMPREHENSIVE",
+   "idv": 325000,
+   "base_premium": 11346,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [
+    "ZERO_DEP",
+    "RSA"
+   ],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "WB02AB1234",
+   "status": "QUOTED",
+   "vehicle": "MARUTI SWIFT VXI",
+   "plan": "Third Party Only",
+   "coverage": "THIRD_PARTY",
+   "idv": 0,
+   "base_premium": 3416,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "WB06CD5678",
+   "status": "DECLINED",
+   "reason": "Vehicle age exceeds 10 years"
+  },
+  {
+   "registration": "MH12EF4321",
+   "status": "QUOTED",
+   "vehicle": "TATA NEXON XZ+",
+   "plan": "Essential",
+   "coverage": "COMPREHENSIVE",
+   "idv": 690000,
+   "base_premium": 19459,
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30",
+   "taxes": []
+  },
+  {
+   "registration": "MH12EF4321",
+   "status": "QUOTED",
+   "vehicle": "TATA NEXON XZ+",
+   "plan": "Comprehensive Plus",
+   "coverage": "COMPREHENSIVE",
+   "idv": 690000,
+   "base_premium": 22264,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [
+    "ZERO_DEP",
+    "RSA"
+   ],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "MH12EF4321",
+   "status": "QUOTED",
+   "vehicle": "TATA NEXON XZ+",
+   "plan": "Third Party Only",
+   "coverage": "THIRD_PARTY",
+   "idv": 0,
+   "base_premium": 3416,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "DL3CAB0042",
+   "status": "QUOTED",
+   "vehicle": "HYUNDAI CRETA SX",
+   "plan": "Essential",
+   "coverage": "COMPREHENSIVE",
+   "idv": 710000,
+   "base_premium": 25426,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "DL3CAB0042",
+   "status": "QUOTED",
+   "vehicle": "HYUNDAI CRETA SX",
+   "plan": "Comprehensive Plus",
+   "coverage": "COMPREHENSIVE",
+   "idv": 710000,
+   "addons": [
+    "ZERO_DEP",
+    "RSA"
+   ],
+   "valid_until": "2026-11-30T23:59:00+05:30",
+   "premium": 34370,
+   "premium_includes_gst": true
+  },
+  {
+   "registration": "DL3CAB0042",
+   "status": "QUOTED",
+   "vehicle": "HYUNDAI CRETA SX",
+   "plan": "Third Party Only",
+   "coverage": "THIRD_PARTY",
+   "idv": 0,
+   "base_premium": 3416,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "KA01MN7788",
+   "status": "QUOTED",
+   "vehicle": "MARUTI BALENO ZETA",
+   "plan": "Essential",
+   "coverage": "COMPREHENSIVE",
+   "idv": 567000,
+   "base_premium": 17478,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "KA01MN7788",
+   "status": "QUOTED",
+   "vehicle": "MARUTI BALENO ZETA",
+   "plan": "Comprehensive Plus",
+   "coverage": "COMPREHENSIVE",
+   "idv": 567000,
+   "base_premium": 19986,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [
+    "ZERO_DEP",
+    "RSA"
+   ],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "KA01MN7788",
+   "status": "QUOTED",
+   "vehicle": "MARUTI BALENO ZETA",
+   "plan": "Third Party Only",
+   "coverage": "THIRD_PARTY",
+   "idv": 0,
+   "base_premium": 3416,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "TN09XY3456",
+   "status": "QUOTED",
+   "vehicle": "HONDA CITY V CVT",
+   "plan": "Essential",
+   "coverage": "COMPREHENSIVE",
+   "idv": 494000,
+   "base_premium": 11073,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "TN09XY3456",
+   "status": "QUOTED",
+   "vehicle": "HONDA CITY V CVT",
+   "plan": "Third Party Only",
+   "coverage": "THIRD_PARTY",
+   "idv": 0,
+   "base_premium": 3416,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "WB20PQ0909",
+   "status": "QUOTED",
+   "vehicle": "MARUTI ALTO K10 VXI",
+   "plan": "Essential",
+   "coverage": "COMPREHENSIVE",
+   "idv": 174000,
+   "base_premium": 5061,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "WB20PQ0909",
+   "status": "QUOTED",
+   "vehicle": "MARUTI ALTO K10 VXI",
+   "plan": "Third Party Only",
+   "coverage": "THIRD_PARTY",
+   "idv": 0,
+   "base_premium": 2094,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "GJ01RS2211",
+   "status": "QUOTED",
+   "vehicle": "MAHINDRA XUV700 AX7",
+   "plan": "Essential",
+   "coverage": "COMPREHENSIVE",
+   "idv": 1290000,
+   "base_premium": 39889,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "GJ01RS2211",
+   "status": "QUOTED",
+   "vehicle": "MAHINDRA XUV700 AX7",
+   "plan": "Comprehensive Plus",
+   "coverage": "COMPREHENSIVE",
+   "idv": 1290000,
+   "base_premium": 45087,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [
+    "ZERO_DEP",
+    "RSA"
+   ],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "GJ01RS2211",
+   "status": "QUOTED",
+   "vehicle": "MAHINDRA XUV700 AX7",
+   "plan": "Third Party Only",
+   "coverage": "THIRD_PARTY",
+   "idv": 0,
+   "base_premium": 7897,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "UP32KL6060",
+   "status": "QUOTED",
+   "vehicle": "KIA SONET HTX",
+   "plan": "Essential",
+   "coverage": "COMPREHENSIVE",
+   "idv": 816000,
+   "base_premium": 27390,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "UP32KL6060",
+   "status": "QUOTED",
+   "vehicle": "KIA SONET HTX",
+   "plan": "Comprehensive Plus",
+   "coverage": "COMPREHENSIVE",
+   "idv": 816000,
+   "base_premium": 31583,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [
+    "ZERO_DEP",
+    "RSA"
+   ],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "UP32KL6060",
+   "status": "QUOTED",
+   "vehicle": "KIA SONET HTX",
+   "plan": "Third Party Only",
+   "coverage": "THIRD_PARTY",
+   "idv": 0,
+   "base_premium": 2094,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "WB04ZZ1001",
+   "status": "DECLINED",
+   "reason": "Vehicle age exceeds 10 years"
+  },
+  {
+   "registration": "RJ14BC7007",
+   "status": "QUOTED",
+   "vehicle": "TATA TIAGO XZ",
+   "plan": "Essential",
+   "coverage": "COMPREHENSIVE",
+   "idv": 305000,
+   "base_premium": 10507,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "RJ14BC7007",
+   "status": "QUOTED",
+   "vehicle": "TATA TIAGO XZ",
+   "plan": "Comprehensive Plus",
+   "coverage": "COMPREHENSIVE",
+   "idv": 305000,
+   "base_premium": 11970,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [
+    "ZERO_DEP",
+    "RSA"
+   ],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "RJ14BC7007",
+   "status": "QUOTED",
+   "vehicle": "TATA TIAGO XZ",
+   "plan": "Third Party Only",
+   "coverage": "THIRD_PARTY",
+   "idv": 0,
+   "base_premium": 3416,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-30T23:59:00+05:30"
+  },
+  {
+   "registration": "KL07DE3030",
+   "status": "QUOTED",
+   "vehicle": "MARUTI SWIFT ZXI",
+   "plan": "Essential",
+   "coverage": "COMPREHENSIVE",
+   "idv": 494000,
+   "base_premium": 13370,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-05T23:59:00+05:30"
+  },
+  {
+   "registration": "KL07DE3030",
+   "status": "QUOTED",
+   "vehicle": "MARUTI SWIFT ZXI",
+   "plan": "Comprehensive Plus",
+   "coverage": "COMPREHENSIVE",
+   "idv": 494000,
+   "base_premium": 15262,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [
+    "ZERO_DEP",
+    "RSA"
+   ],
+   "valid_until": "2026-11-05T23:59:00+05:30"
+  },
+  {
+   "registration": "KL07DE3030",
+   "status": "QUOTED",
+   "vehicle": "MARUTI SWIFT ZXI",
+   "plan": "Third Party Only",
+   "coverage": "THIRD_PARTY",
+   "idv": 0,
+   "base_premium": 3416,
+   "taxes": [
+    {
+     "name": "GST",
+     "rate": 0.18
+    }
+   ],
+   "addons": [],
+   "valid_until": "2026-11-05T23:59:00+05:30"
+  }
+ ]
+}

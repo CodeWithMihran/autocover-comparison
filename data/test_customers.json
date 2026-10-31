@@ -1,0 +1,34 @@
+{
+ "reference_date": "2026-11-10",
+ "customers": [
+  {
+   "name": "Rahul Sen",
+   "phone": "+91 98300 11111",
+   "registration_number": "WB 02 AB 1234"
+  },
+  {
+   "name": "Priya Nair",
+   "phone": "+91 98470 22222",
+   "registration_number": "kl-07-de-3030"
+  },
+  {
+   "name": "Arjun Mehta",
+   "phone": "+91 98220 33333",
+   "registration_number": "MH12 EF 4321"
+  },
+  {
+   "name": "Sanjay Gupta",
+   "phone": "+91 98310 44444",
+   "registration_number": "wb06cd5678"
+  },
+  {
+   "name": "Fatima Khan",
+   "phone": "+91 98110 55555",
+   "registration_number": "DL 3C AB 0042"
+  }
+ ],
+ "also_try": [
+  "WB02AB9999",
+  "12345"
+ ]
+}
