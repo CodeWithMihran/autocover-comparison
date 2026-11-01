@@ -1,4 +1,5 @@
 import type { Vehicle } from '../types/insurance'
+import { apiUrl } from './api'
 
 interface VehicleLookupResponse {
   vehicle: Vehicle;
@@ -18,7 +19,7 @@ export async function lookupVehicle(registration: string): Promise<Vehicle> {
   const query = new URLSearchParams({ registration })
   let response: Response
   try {
-    response = await fetch(`/api/vehicles?${query.toString()}`)
+    response = await fetch(apiUrl(`/api/vehicles?${query.toString()}`))
   } catch {
     throw new VehicleLookupError('We could not reach AutoCover just now. Please try again.', 0)
   }

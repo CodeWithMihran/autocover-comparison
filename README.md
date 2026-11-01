@@ -88,6 +88,10 @@ This repository includes a `render.yaml` Blueprint for a single Node web service
 
 The free Render web service may sleep after 15 minutes without traffic, so its first request after idling can take longer. Its filesystem is temporary; AutoCover keeps saved records in MongoDB Atlas rather than on the service disk. See Render's [free service limitations](https://render.com/docs/free) and [web service port requirements](https://render.com/docs/web-services).
 
+### Deploy the frontend on Vercel and API on Render
+
+If the frontend is hosted separately on Vercel, deploy a Render web service from this same repository with a blank root directory, build command `npm ci && npm run typecheck`, and start command `npm start`. Add `MONGODB_URI`, `MONGODB_DB_NAME=autocover`, `AUTOCOVER_REFERENCE_DATE=2026-11-10`, `MOCK_PROVIDER_D_FAILURE_RATE=0.12`, `NODE_VERSION=22.12.0`, and `CORS_ORIGINS=https://<your-vercel-domain>` to Render. In Vercel, set `VITE_API_BASE_URL=https://<your-render-service>.onrender.com`, then redeploy the frontend. `VITE_API_BASE_URL` is compiled into the frontend at build time; it should contain only the public API origin, never a secret. The API allows browser requests only from origins listed in `CORS_ORIGINS`.
+
 ## Verify the project
 
 From the repository root:

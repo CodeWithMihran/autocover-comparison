@@ -4,6 +4,7 @@ import { lookupVehicle, VehicleLookupError } from './services/vehicleService'
 import { getPolicies, savePolicy, type SavedPolicy } from './services/policyService'
 import { getSavedComparisons, saveComparison as persistComparison } from './services/comparisonService'
 import { fetchProviderQuotes, flattenQuotes, type ProviderId, type ProviderState } from './services/quoteService'
+import { apiUrl } from './services/api'
 import type { AddonConcept, NormalizedQuote, SavedComparison, Vehicle } from './types/insurance'
 
 type Screen = 'lookup' | 'review' | 'confirmed' | 'compare' | 'dashboard' | 'saved-comparison'
@@ -376,7 +377,7 @@ function App() {
 
   useEffect(() => {
     let active = true
-    void fetch('/api/health')
+    void fetch(apiUrl('/api/health'))
       .then((response) => response.ok ? response.json() as Promise<{ referenceDate?: string }> : null)
       .then((configuration) => {
         if (active && configuration?.referenceDate) setReferenceDate(configuration.referenceDate)

@@ -1,4 +1,5 @@
 import type { ProviderParseResult, NormalizedQuote } from '../types/insurance'
+import { apiUrl } from './api'
 
 export type ProviderId = 'a' | 'b' | 'c' | 'd'
 export type ProviderState =
@@ -9,7 +10,7 @@ export type ProviderState =
 export async function fetchProviderQuotes(id: ProviderId, registration: string): Promise<ProviderParseResult> {
   let response: Response
   try {
-    response = await fetch(`/api/providers/${id}/quotes?registration=${encodeURIComponent(registration)}`, { signal: AbortSignal.timeout(10_000) })
+    response = await fetch(apiUrl(`/api/providers/${id}/quotes?registration=${encodeURIComponent(registration)}`), { signal: AbortSignal.timeout(10_000) })
   } catch (error) {
     throw new Error(error instanceof DOMException && error.name === 'TimeoutError'
       ? 'Provider request timed out. Please retry.'

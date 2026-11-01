@@ -65,6 +65,7 @@ Please do your best to find and fix them in the best way possible”
 16. “Now complete this feature in the best way possible: Saved comparisons. Let users save a comparison to revisit later, using MongoDB persistence, and make sure saving a confirmed policy works first.”
 17. “Before doing anything else I want you to check the entire codebase for any bugs and errors or logical errors in the best way possible to make the project flawless in every aspect. Please do your best to find and fix them in the best way possible.”
 18. “I want to deploy it also” — Codex inspected the app's runtime and prepared a single-service Render deployment: production frontend serving, public port binding, a Render Blueprint, and deployment steps in the README.
+19. “I have deployed the frontend in Vercel successfully” — Codex updated API URL configuration for a separately hosted frontend, added allow-listed CORS/preflight handling to the API, and documented the Vercel + Render configuration.
 
 ## Review notes
 
@@ -84,3 +85,4 @@ Please do your best to find and fix them in the best way possible”
 - During the latest full audit, Codex fixed safe-integer handling for parsed money, strict comma grouping, ambiguous Provider A premium/GST representations and malformed JSON rows, ambiguous Provider B tax notes, vehicle expiry-before-registration validation, API port/body-abort handling, provider retry preservation of prior results, independent dashboard loading errors, and selected-source quote verification shared by policy and comparison saves. Added regression tests for these cases and saved-comparison request validation.
 - The app still needs a MongoDB-backed manual run and screenshots or a short demo recording before submission.
 - For deployment, Codex added production static-file serving with SPA fallback, changed the Node server to bind on `0.0.0.0` and honor the host-provided `PORT`, added a Render Blueprint, and documented Atlas setup and free-tier behavior. The production TypeScript check and frontend build passed after these changes.
+- For the separate Vercel frontend deployment, Codex added `VITE_API_BASE_URL` support across frontend API calls, configurable `CORS_ORIGINS` handling for API and preflight requests, and split-host deployment instructions. Set the Vercel and Render origin values before relying on API-backed features.

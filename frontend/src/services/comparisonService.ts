@@ -1,4 +1,5 @@
 import type { NormalizedQuote, SavedComparison, Vehicle } from '../types/insurance'
+import { apiUrl } from './api'
 
 async function readPayload<T extends Record<string, unknown>>(response: Response): Promise<T> {
   let payload: T | { error?: string }
@@ -10,13 +11,13 @@ async function readPayload<T extends Record<string, unknown>>(response: Response
 }
 
 export async function getSavedComparisons(): Promise<SavedComparison[]> {
-  const response = await fetch('/api/comparisons')
+  const response = await fetch(apiUrl('/api/comparisons'))
   const payload = await readPayload<{ comparisons: SavedComparison[] }>(response)
   return payload.comparisons
 }
 
 export async function saveComparison(vehicle: Vehicle, plans: NormalizedQuote[]): Promise<SavedComparison> {
-  const response = await fetch('/api/comparisons', {
+  const response = await fetch(apiUrl('/api/comparisons'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ vehicle, plans }),

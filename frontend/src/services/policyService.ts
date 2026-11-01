@@ -1,4 +1,5 @@
 import type { NormalizedQuote, Vehicle } from '../types/insurance'
+import { apiUrl } from './api'
 
 export interface SavedPolicy {
   id: string
@@ -24,13 +25,13 @@ async function readPayload<T extends Record<string, unknown>>(response: Response
 }
 
 export async function getPolicies(): Promise<SavedPolicy[]> {
-  const response = await fetch('/api/policies')
+  const response = await fetch(apiUrl('/api/policies'))
   const payload = await readPayload<{ policies: SavedPolicy[] }>(response)
   return payload.policies
 }
 
 export async function savePolicy(vehicle: Vehicle, quote: NormalizedQuote): Promise<SavedPolicy> {
-  const response = await fetch('/api/policies', {
+  const response = await fetch(apiUrl('/api/policies'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ vehicle, quote }),

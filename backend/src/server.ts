@@ -34,6 +34,10 @@ const contentTypes: Record<string, string> = {
   ".webp": "image/webp",
   ".woff2": "font/woff2",
 };
+const allowedOrigins = new Set((process.env.CORS_ORIGINS ?? "")
+  .split(",")
+  .map((origin) => origin.trim().replace(/\/$/, ""))
+  .filter(Boolean));
 const providerRoutes: Record<string, (registration: string) => Promise<ProviderParseResult>> = {
   a: (registration) => parseProviderA(dataPath("provider_a.json"), registration),
   b: async (registration) => {
@@ -74,6 +78,18 @@ function readJsonBody(request: import("node:http").IncomingMessage): Promise<unk
 const server = createServer((request, response) => {
   const url = new URL(request.url ?? "/", `http://${request.headers.host ?? "localhost"}`);
   response.setHeader("Content-Type", "application/json; charset=utf-8");
+  const requestOrigin = request.headers.origin;
+  const normalizedOrigin = requestOrigin?.replace(/\/$/, "");
+  if (normalizedOrigin && allowedOrigins.has(normalizedOrigin)) {
+    response.setHeader("Access-Control-Allow-Origin", normalizedOrigin);
+    response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    response.setHeader("Vary", "Origin");
+  }
+  if (request.method === "OPTIONS") {
+    response.writeHead(normalizedOrigin && allowedOrigins.has(normalizedOrigin) ? 204 : 403).end();
+    return;
+  }
 
   if (request.method === "GET" && url.pathname === "/api/comparisons") {
     void (async () => {
