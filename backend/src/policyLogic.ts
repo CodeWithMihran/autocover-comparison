@@ -1,12 +1,48 @@
-import type { NormalizedQuote, Vehicle } from "./domain.js";
-import { parseIsoDate } from "./normalization.js";
+import type { AddonConcept, NormalizedQuote, Vehicle } from "./domain.js";
+import { parseIsoDate, referenceDateFromEnv } from "./normalization.js";
 
 export interface PolicyRequest {
   vehicle: Vehicle;
   quote: NormalizedQuote;
 }
 
-export function isVehicleRecord(value: unknown): value is Vehicle {
+const addonConcepts: AddonConcept[] = [
+  "zero_depreciation", "roadside_assistance", "engine_protection", "consumables", "key_replacement", "unknown",
+];
+
+function isDateOrNull(value: unknown): value is string | null {
+  if (value === null) return true;
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  try { return parseIsoDate(value) === value; }
+  catch { return false; }
+}
+
+export function isNormalizedQuote(value: unknown): value is NormalizedQuote {
+  if (!value || typeof value !== "object") return false;
+  const quote = value as Partial<NormalizedQuote>;
+  const isNonEmpty = (candidate: unknown): candidate is string => typeof candidate === "string" && Boolean(candidate.trim());
+  const isMoney = (amount: unknown): amount is number | null =>
+    amount === null || (typeof amount === "number" && Number.isSafeInteger(amount) && amount >= 0);
+  const addonsAreValid = Array.isArray(quote.addons) && quote.addons.every((addon) =>
+    addon && typeof addon === "object"
+    && addonConcepts.includes(addon.concept)
+    && isNonEmpty(addon.sourceLabel));
+  return isNonEmpty(quote.provider)
+    && isNonEmpty(quote.registration)
+    && (quote.sourceQuoteId === null || typeof quote.sourceQuoteId === "string")
+    && isNonEmpty(quote.planName)
+    && isMoney(quote.totalPremiumInr) && isMoney(quote.gstInr) && isMoney(quote.basePremiumInr) && isMoney(quote.idvInr)
+    && ["comprehensive", "third_party", "unknown"].includes(quote.coverageType ?? "")
+    && addonsAreValid
+    && Array.isArray(quote.benefits) && quote.benefits.every((item) => typeof item === "string")
+    && isDateOrNull(quote.validUntil)
+    && ["valid", "expired", "not_yet_valid", "unknown"].includes(quote.validityStatus ?? "")
+    && (quote.taxIncluded === null || typeof quote.taxIncluded === "boolean")
+    && ["source_quote", "calculated_from_rate_card"].includes(quote.priceBasis ?? "")
+    && Array.isArray(quote.warnings) && quote.warnings.every((item) => typeof item === "string");
+}
+
+export function isVehicleRecord(value: unknown, referenceDate = referenceDateFromEnv()): value is Vehicle {
   if (!value || typeof value !== "object") return false;
   const vehicle = value as Partial<Vehicle>;
   const isNonEmpty = (candidate: unknown): candidate is string => typeof candidate === "string" && candidate.trim().length > 0;
@@ -23,7 +59,7 @@ export function isVehicleRecord(value: unknown): value is Vehicle {
   return isNonEmpty(vehicle.registration) && isNonEmpty(vehicle.make) && isNonEmpty(vehicle.model)
     && isNonEmpty(vehicle.variant) && isNonEmpty(vehicle.rto)
     && (vehicle.fuelType === null || isNonEmpty(vehicle.fuelType))
-    && registrationDateIsValid && expiryIsValid
+    && registrationDateIsValid && typeof registrationDate === "string" && registrationDate <= referenceDate && expiryIsValid
     && typeof vehicle.engineCc === "number" && Number.isSafeInteger(vehicle.engineCc) && vehicle.engineCc > 0
     && typeof vehicle.exShowroomPriceInr === "number" && Number.isSafeInteger(vehicle.exShowroomPriceInr) && vehicle.exShowroomPriceInr > 0
     && typeof vehicle.ncbPercent === "number" && Number.isFinite(vehicle.ncbPercent) && vehicle.ncbPercent >= 0 && vehicle.ncbPercent <= 100
@@ -35,7 +71,7 @@ export function isPolicyRequest(value: unknown): value is PolicyRequest {
   const candidate = value as Partial<PolicyRequest>;
   const vehicle = candidate.vehicle;
   const quote = candidate.quote;
-  if (!vehicle || !quote || !isVehicleRecord(vehicle)) return false;
+  if (!vehicle || !isVehicleRecord(vehicle) || !isNormalizedQuote(quote)) return false;
   const isNonEmpty = (candidate: unknown): candidate is string => typeof candidate === "string" && candidate.trim().length > 0;
   return isNonEmpty(quote.provider) && isNonEmpty(quote.planName)
     && isNonEmpty(quote.registration) && typeof quote.totalPremiumInr === "number"

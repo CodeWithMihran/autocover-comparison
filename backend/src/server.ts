@@ -5,7 +5,7 @@ import { normalizeRegistration, referenceDateFromEnv } from "./normalization.js"
 import { loadVehicles } from "./vehicles.js";
 import { closeDatabase, ensureDatabase, getComparisonsCollection, getPoliciesCollection } from "./database.js";
 import { isPolicyRequest, mockPolicyDates, policyExpiryStatus } from "./policyLogic.js";
-import { isSavedComparisonRequest, matchesSourceQuote } from "./comparisonLogic.js";
+import { hasDuplicatePlans, isSavedComparisonRequest, matchesSourceQuote } from "./comparisonLogic.js";
 import { parseProviderA } from "./providers/providerA.js";
 import { parseProviderB } from "./providers/providerB.js";
 import { parseProviderC } from "./providers/providerC.js";
@@ -92,8 +92,7 @@ const server = createServer((request, response) => {
         response.writeHead(400).end(JSON.stringify({ error: "Vehicle and all plans must use the same registration from the supplied registry." }));
         return;
       }
-      const keys = body.plans.map((quote) => JSON.stringify([quote.provider, quote.sourceQuoteId, quote.planName]));
-      if (new Set(keys).size !== keys.length) {
+      if (hasDuplicatePlans(body.plans)) {
         response.writeHead(400).end(JSON.stringify({ error: "Choose different plans; duplicate plans cannot be saved in one comparison." }));
         return;
       }

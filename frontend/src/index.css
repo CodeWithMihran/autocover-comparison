@@ -1,7 +1,7 @@
 :root {
   font-family: Inter, "Aptos", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
   color: #171716;
-  background: #f8f7f4;
+  background: #fff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -9,7 +9,7 @@
 
   --ink: #171716;
   --muted: #74716b;
-  --page: #f8f7f4;
+  --page: #fff;
   --gold: #b98c4d;
 }
 
@@ -20,7 +20,7 @@
 html {
   min-width: 320px;
   scroll-behavior: smooth;
-  scroll-padding-top: 24px;
+  scroll-padding-top: 96px;
 }
 
 body {

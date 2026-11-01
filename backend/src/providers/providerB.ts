@@ -66,8 +66,9 @@ export async function parseProviderB(
       }
       const planName = plan.find("h3").first().text().trim() || planId;
       const sourceAddons = plan.find("ul.addons li").toArray().map((item) => $(item).text().trim());
-      const addons = sourceAddons.map(normalizeAddon);
-      const benefits = sourceAddons.filter((_, index) => addons[index].concept === "unknown");
+      const normalizedAddons = sourceAddons.map(normalizeAddon);
+      const addons = normalizedAddons.filter((addon) => addon.concept !== "unknown");
+      const benefits = normalizedAddons.filter((addon) => addon.concept === "unknown").map((addon) => addon.sourceLabel);
       const warnings: string[] = [];
       const validUntil = parseDateSafely(payload.valid_till, warnings, "Quote expiry");
       const cover = parseIdvSafely(payload.cover, warnings);

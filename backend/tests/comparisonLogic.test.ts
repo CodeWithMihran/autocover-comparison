@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import type { NormalizedQuote, Vehicle } from "../src/domain.js";
-import { isSavedComparisonRequest, matchesSourceQuote } from "../src/comparisonLogic.js";
+import { hasDuplicatePlans, isSavedComparisonRequest, matchesSourceQuote } from "../src/comparisonLogic.js";
 
 const vehicle: Vehicle = {
   registration: "WB02AB1234",
@@ -44,6 +44,7 @@ test("saved comparison validation requires two or three structurally valid plans
   assert.equal(isSavedComparisonRequest({ vehicle, plans: [first] }), false);
   assert.equal(isSavedComparisonRequest({ vehicle, plans: [first, second, quote("Provider C", "Third", "C-1"), quote("Provider D", "Fourth", null)] }), false);
   assert.equal(isSavedComparisonRequest({ vehicle: { ...vehicle, currentPolicyExpiry: "2026-02-30" }, plans: [first, second] }), false);
+  assert.equal(isSavedComparisonRequest({ vehicle: { ...vehicle, currentPolicyExpiry: null, registrationDate: "2026-11-11" }, plans: [first, second] }), false);
   assert.equal(isSavedComparisonRequest({ vehicle, plans: [first, { ...second, addons: [null] }] }), false);
 });
 
@@ -53,4 +54,11 @@ test("source quote comparison rejects changes to normalized price and benefit fi
   assert.equal(matchesSourceQuote(supplied, { ...supplied, totalPremiumInr: 1 }), false);
   assert.equal(matchesSourceQuote(supplied, { ...supplied, addons: [{ concept: "unknown", sourceLabel: "RSA" }] }), false);
   assert.equal(matchesSourceQuote(supplied, { ...supplied, warnings: ["altered"] }), false);
+});
+
+test("duplicate detection preserves distinct same-name plans when the provider has no quote ID", () => {
+  const first = quote("Provider A", "Essential", null);
+  const second = { ...first, totalPremiumInr: 12_000 };
+  assert.equal(hasDuplicatePlans([first, { ...first }]), true);
+  assert.equal(hasDuplicatePlans([first, second]), false);
 });

@@ -1,41 +1,9 @@
 import type { NormalizedQuote, Vehicle } from "./domain.js";
-import { isVehicleRecord } from "./policyLogic.js";
-import { parseIsoDate } from "./normalization.js";
+import { isNormalizedQuote, isVehicleRecord } from "./policyLogic.js";
 
 export interface SavedComparisonRequest {
   vehicle: Vehicle;
   plans: NormalizedQuote[];
-}
-
-function isDateOrNull(value: unknown): value is string | null {
-  if (value === null) return true;
-  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-  try { return parseIsoDate(value) === value; }
-  catch { return false; }
-}
-
-function isQuote(value: unknown): value is NormalizedQuote {
-  if (!value || typeof value !== "object") return false;
-  const quote = value as Partial<NormalizedQuote>;
-  const money = (amount: unknown): amount is number | null =>
-    amount === null || (typeof amount === "number" && Number.isSafeInteger(amount) && amount >= 0);
-  const addonsAreValid = Array.isArray(quote.addons) && quote.addons.every((addon) =>
-    addon && typeof addon === "object"
-    && ["zero_depreciation", "roadside_assistance", "engine_protection", "consumables", "key_replacement", "unknown"].includes(addon.concept)
-    && typeof addon.sourceLabel === "string" && Boolean(addon.sourceLabel.trim()));
-  return typeof quote.provider === "string" && Boolean(quote.provider.trim())
-    && typeof quote.registration === "string" && Boolean(quote.registration.trim())
-    && (quote.sourceQuoteId === null || typeof quote.sourceQuoteId === "string")
-    && typeof quote.planName === "string" && Boolean(quote.planName.trim())
-    && money(quote.totalPremiumInr) && money(quote.gstInr) && money(quote.basePremiumInr) && money(quote.idvInr)
-    && ["comprehensive", "third_party", "unknown"].includes(quote.coverageType ?? "")
-    && addonsAreValid
-    && Array.isArray(quote.benefits) && quote.benefits.every((item) => typeof item === "string")
-    && isDateOrNull(quote.validUntil)
-    && ["valid", "expired", "not_yet_valid", "unknown"].includes(quote.validityStatus ?? "")
-    && (quote.taxIncluded === null || typeof quote.taxIncluded === "boolean")
-    && ["source_quote", "calculated_from_rate_card"].includes(quote.priceBasis ?? "")
-    && Array.isArray(quote.warnings) && quote.warnings.every((item) => typeof item === "string");
 }
 
 export function isSavedComparisonRequest(value: unknown): value is SavedComparisonRequest {
@@ -45,7 +13,7 @@ export function isSavedComparisonRequest(value: unknown): value is SavedComparis
     && Array.isArray(candidate.plans)
     && candidate.plans.length >= 2
     && candidate.plans.length <= 3
-    && candidate.plans.every(isQuote);
+    && candidate.plans.every(isNormalizedQuote);
 }
 
 function sameStringArray(left: string[], right: string[]): boolean {
@@ -71,5 +39,9 @@ export function matchesSourceQuote(source: NormalizedQuote, candidate: Normalize
     && source.taxIncluded === candidate.taxIncluded
     && source.priceBasis === candidate.priceBasis
     && sameStringArray(source.warnings, candidate.warnings);
+}
+
+export function hasDuplicatePlans(plans: NormalizedQuote[]): boolean {
+  return plans.some((plan, index) => plans.slice(0, index).some((previous) => matchesSourceQuote(previous, plan)));
 }
 

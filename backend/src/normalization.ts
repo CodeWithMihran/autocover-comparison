@@ -98,7 +98,7 @@ export function parseDateSafely(
 }
 
 const ADDON_ALIASES: Array<[AddonConcept, string[]]> = [
-  ["zero_depreciation", ["zero dep", "zero depreciation", "nil depreciation", "bumper to bumper"]],
+  ["zero_depreciation", ["zero_dep", "zero dep", "zero depreciation", "nil depreciation", "bumper to bumper"]],
   ["roadside_assistance", ["rsa", "roadside assistance", "24x7 roadside"]],
   ["engine_protection", ["engine protect", "engine protection", "engine & gearbox protection"]],
   ["consumables", ["consumables"]],

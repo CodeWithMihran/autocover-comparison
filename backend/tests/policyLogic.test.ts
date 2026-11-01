@@ -71,6 +71,11 @@ test("policy request validation rejects malformed vehicle dates and out-of-range
   assert.equal(isPolicyRequest(validRequest), true);
   assert.equal(isPolicyRequest({ ...validRequest, vehicle: { ...vehicle, registrationDate: "2026-02-30" } }), false);
   assert.equal(isPolicyRequest({ ...validRequest, vehicle: { ...vehicle, registrationDate: "2026-11-21" } }), false);
+  assert.equal(isPolicyRequest({ ...validRequest, vehicle: { ...vehicle, currentPolicyExpiry: null, registrationDate: "2026-11-11" } }), false);
+  assert.equal(isPolicyRequest({ ...validRequest, vehicle: { ...vehicle, currentPolicyExpiry: null, registrationDate: "2026-11-10" } }), true);
   assert.equal(isPolicyRequest({ ...validRequest, vehicle: { ...vehicle, ncbPercent: 101 } }), false);
   assert.equal(isPolicyRequest({ ...validRequest, quote: { ...validRequest.quote, totalPremiumInr: 11_759.5 } }), false);
+  const { benefits: _benefits, ...withoutBenefits } = validRequest.quote;
+  assert.equal(isPolicyRequest({ ...validRequest, quote: withoutBenefits }), false);
+  assert.equal(isPolicyRequest({ ...validRequest, quote: { ...validRequest.quote, warnings: null } }), false);
 });

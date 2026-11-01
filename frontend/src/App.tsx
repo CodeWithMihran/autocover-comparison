@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useMemo, useRef, useState, type FormEvent, type MouseEvent } from 'react'
 import './App.css'
 import { lookupVehicle, VehicleLookupError } from './services/vehicleService'
 import { getPolicies, savePolicy, type SavedPolicy } from './services/policyService'
@@ -167,6 +167,12 @@ function CompareScreen({
     <div className="compare-heading">
       <div><p className="card-kicker">YOUR OPTIONS · {vehicle.registration}</p><h2 id="compare-title">Compare plans with confidence</h2><p>{vehicle.make} {vehicle.model} {vehicle.variant} · {vehicle.rto}</p></div>
       <button className="text-button" type="button" onClick={onBack}><ArrowIcon direction="left" /> Vehicle details</button>
+    </div>
+    <div className="compare-context" aria-label="How to compare these plans">
+      <div className="compare-context-vehicle"><span className="context-car-icon" aria-hidden="true"><svg viewBox="0 0 48 32" fill="none"><path d="M7 20.5 10.5 11a4 4 0 0 1 3.8-2.7h17.4a4 4 0 0 1 3.8 2.7l3.5 9.5v5H7v-5Z" stroke="currentColor" strokeWidth="2"/><path d="M11 19h26M15 9l-2.5 10m20.5-10 2.5 10" stroke="currentColor" strokeWidth="2"/><circle cx="13" cy="25" r="3" fill="currentColor"/><circle cx="35" cy="25" r="3" fill="currentColor"/></svg></span><span><small>COMPARING FOR</small><strong>{vehicle.make} {vehicle.model}</strong><em>{vehicle.registration} · {vehicle.rto}</em></span></div>
+      <div className="compare-context-item"><span className="context-icon">₹</span><span><strong>Look beyond price</strong><small>Check the tax basis and what’s included.</small></span></div>
+      <div className="compare-context-item"><span className="context-icon">◇</span><span><strong>Compare protection</strong><small>IDV, cover type and add-ons matter.</small></span></div>
+      <div className="compare-context-item"><span className="context-icon">i</span><span><strong>Check the details</strong><small>Open source notes for calculations and gaps.</small></span></div>
     </div>
     <div className="provider-statuses" aria-label="Provider quote status">
       {(['a', 'b', 'c', 'd'] as const).map((id) => {
@@ -345,6 +351,7 @@ function isValidDateOnly(value: string): boolean {
 function App() {
   const [registration, setRegistration] = useState('')
   const [screen, setScreen] = useState<Screen>('lookup')
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
   const [vehicle, setVehicle] = useState<Vehicle | null>(null)
   const [draft, setDraft] = useState<Vehicle | null>(null)
   const [draftError, setDraftError] = useState('')
@@ -528,6 +535,16 @@ function App() {
     setDraft(null)
   }
 
+  function navigateToSection(event: MouseEvent<HTMLAnchorElement>, sectionId: string) {
+    event.preventDefault()
+    setMobileNavOpen(false)
+    if (screen === 'compare' || screen === 'dashboard' || screen === 'saved-comparison') setScreen('lookup')
+    window.history.replaceState(null, '', `#${sectionId}`)
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+    })
+  }
+
   return (
     <div className="app-shell">
       <header className="site-header">
@@ -536,19 +553,21 @@ function App() {
             <BrandMark />
             <span className="brand-wordmark">Auto<span>Cover</span></span>
           </a>
-          <nav className="main-nav" aria-label="Main navigation">
-            <a href="#how-it-works">How it works</a>
-            <a href="#why-autocover">Why AutoCover</a>
-          <button className="header-policy-link" type="button" onClick={() => void openDashboard()}>My saved items</button>
+          <nav id="main-navigation" className={`main-nav ${mobileNavOpen ? 'is-open' : ''}`} aria-label="Main navigation">
+            <a href="#how-it-works" onClick={(event) => navigateToSection(event, 'how-it-works')}>How it works</a>
+            <a href="#why-autocover" onClick={(event) => navigateToSection(event, 'why-autocover')}>Why AutoCover</a>
+            <button className="header-policy-link" type="button" onClick={() => { setMobileNavOpen(false); void openDashboard() }}>My saved items</button>
           </nav>
-          <button className="mobile-policy-link" type="button" onClick={() => void openDashboard()}>Saved items</button>
-          <a className="header-cta" href="#vehicle-search" onClick={() => { if (screen === 'dashboard' || screen === 'saved-comparison') resetLookup() }}>Start comparing <ArrowIcon /></a>
+          <button className="nav-toggle" type="button" aria-label={mobileNavOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={mobileNavOpen} aria-controls="main-navigation" onClick={() => setMobileNavOpen((open) => !open)}>
+            <span /><span /><span />
+          </button>
+          <a className="header-cta" href="#vehicle-search" onClick={() => { setMobileNavOpen(false); if (screen === 'dashboard' || screen === 'saved-comparison') resetLookup() }}>Start comparing <ArrowIcon /></a>
         </div>
       </header>
 
       <main id="top">
-        <section className="hero-section" id="vehicle-search">
-          <div className="hero-grid">
+        <section className={`hero-section ${screen === 'compare' || screen === 'dashboard' || screen === 'saved-comparison' ? 'hero-section--workspace' : ''}`} id="vehicle-search">
+          <div className={`hero-grid ${screen === 'compare' || screen === 'dashboard' || screen === 'saved-comparison' ? 'hero-grid--workspace' : ''}`}>
             <div className="hero-copy">
               <div className="eyebrow"><span className="eyebrow-dot" /> A clearer way to renew</div>
               <h1>Good cover starts with <em>one detail.</em></h1>
@@ -700,9 +719,9 @@ function App() {
                 <p>Start with your registration. Review your car, then compare plans on what matters to you.</p>
               </div>
               <div className="panel-points">
-                <div><span className="point-number">01</span><span>Check your vehicle details</span><span className="point-check">✓</span></div>
-                <div><span className="point-number">02</span><span>Compare cover side by side</span><span className="point-check">✓</span></div>
-                <div><span className="point-number">03</span><span>Keep your choice in one place</span><span className="point-check">✓</span></div>
+                <div><span className="point-number">01</span><span><strong>Confirm your car</strong><small>Check the registration record and correct any detail.</small></span><span className="point-check">✓</span></div>
+                <div><span className="point-number">02</span><span><strong>Understand each plan</strong><small>Review price, cover, IDV, add-ons and source notes.</small></span><span className="point-check">✓</span></div>
+                <div><span className="point-number">03</span><span><strong>Save what matters</strong><small>Keep a comparison or mock policy in your dashboard.</small></span><span className="point-check">✓</span></div>
               </div>
               <div className="panel-note"><span className="sparkle">✳</span> Built around your car, not a one-size-fits-all quote.</div>
             </aside>
@@ -710,10 +729,11 @@ function App() {
         </section>
 
         <section className="trust-strip" id="why-autocover" aria-label="AutoCover principles">
+          <div className="why-heading"><p className="panel-kicker">WHY AUTOCOVER</p><h2>A clearer way to make a considered choice.</h2><p>Insurance details can be hard to compare when every provider presents them differently. AutoCover brings the supplied information into one readable view.</p></div>
           <div className="trust-inner">
-            <div><span className="trust-icon">01</span><span><strong>Clear comparisons</strong><small>Price is one part of the picture.</small></span></div>
-            <div><span className="trust-icon">02</span><span><strong>Your details, once</strong><small>Review before moving ahead.</small></span></div>
-            <div><span className="trust-icon">03</span><span><strong>Informed choices</strong><small>Understand what each plan includes.</small></span></div>
+            <article><span className="trust-icon" aria-hidden="true">↔</span><div><strong>Compare the whole plan</strong><p>Look at premium alongside IDV, coverage, GST, add-ons and listed benefits—not just the headline price.</p></div></article>
+            <article><span className="trust-icon" aria-hidden="true">✓</span><div><strong>Stay in control</strong><p>Review and correct vehicle details before comparing. Choose a plan only when you’re ready.</p></div></article>
+            <article><span className="trust-icon" aria-hidden="true">⌕</span><div><strong>See where details come from</strong><p>Provider statuses, quote validity and source notes help make missing or calculated values visible.</p></div></article>
           </div>
         </section>
       </main>

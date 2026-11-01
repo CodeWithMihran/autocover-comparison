@@ -52,6 +52,8 @@ test("Provider A calculates explicit GST, keeps missing GST unknown, and removes
   const essential = swift.quotes.find((quote) => quote.planName === "Essential")!;
   assert.equal(essential.totalPremiumInr, 11_759);
   assert.equal(essential.gstInr, 1_794);
+  const comprehensivePlus = swift.quotes.find((quote) => quote.planName === "Comprehensive Plus")!;
+  assert.equal(comprehensivePlus.addons[0]?.concept, "zero_depreciation");
 
   const missingTax = await parseProviderA(resolve(DATA, "provider_a.json"), "MH12EF4321", AS_OF);
   const missingTaxEssential = missingTax.quotes.find((quote) => quote.planName === "Essential")!;
@@ -129,6 +131,7 @@ test("Provider B joins HTML cards to their embedded JavaScript quote payload", a
   const maxPlan = (await parseProviderB(resolve(DATA, "provider_b.html"), "WB02AB1234", AS_OF))
     .quotes.find((quote) => quote.planName === "Smart Shield Max")!;
   assert.deepEqual(maxPlan.benefits, ["Total Cover"]);
+  assert.ok(maxPlan.addons.every((addon) => addon.concept !== "unknown"));
   assert.ok(maxPlan.addons.some((addon) => addon.concept === "key_replacement"));
 
   const expired = (await parseProviderB(resolve(DATA, "provider_b.html"), "TN09XY3456", AS_OF)).quotes[0];
