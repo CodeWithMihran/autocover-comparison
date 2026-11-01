@@ -66,6 +66,7 @@ Please do your best to find and fix them in the best way possible”
 17. “Before doing anything else I want you to check the entire codebase for any bugs and errors or logical errors in the best way possible to make the project flawless in every aspect. Please do your best to find and fix them in the best way possible.”
 18. “I want to deploy it also” — Codex inspected the app's runtime and prepared a single-service Render deployment: production frontend serving, public port binding, a Render Blueprint, and deployment steps in the README.
 19. “I have deployed the frontend in Vercel successfully” — Codex updated API URL configuration for a separately hosted frontend, added allow-listed CORS/preflight handling to the API, and documented the Vercel + Render configuration.
+20. “I want to enhance UI/UX more before submission as the main buttons like ‘review & confirm’ are too small. Make the website more easy to use, make things bigger like font and button to appropriate size, and make it look more good.” — Codex improved comparison-screen sizing, text hierarchy, primary-action emphasis, responsive layouts, and focus/hover states.
 
 ## Review notes
 
@@ -86,3 +87,4 @@ Please do your best to find and fix them in the best way possible”
 - The app still needs a MongoDB-backed manual run and screenshots or a short demo recording before submission.
 - For deployment, Codex added production static-file serving with SPA fallback, changed the Node server to bind on `0.0.0.0` and honor the host-provided `PORT`, added a Render Blueprint, and documented Atlas setup and free-tier behavior. The production TypeScript check and frontend build passed after these changes.
 - For the separate Vercel frontend deployment, Codex added `VITE_API_BASE_URL` support across frontend API calls, configurable `CORS_ORIGINS` handling for API and preflight requests, and split-host deployment instructions. Set the Vercel and Render origin values before relying on API-backed features.
+- For the final usability pass, Codex enlarged comparison plan typography, provider status and filter controls, plan actions, and the selected-plan confirmation banner; the banner now presents “Review & confirm” as a prominent responsive button. Frontend lint and production build passed.

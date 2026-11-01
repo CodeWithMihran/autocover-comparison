@@ -2291,3 +2291,393 @@
     flex-basis: 38px;
   }
 }
+
+/* Comparison-screen readability and primary-action hierarchy. */
+.compare-screen {
+  width: min(1120px, 100%);
+  padding: clamp(24px, 3.6vw, 42px);
+}
+
+.compare-heading h2 {
+  font-size: clamp(28px, 3vw, 36px);
+}
+
+.compare-heading p:not(.card-kicker) {
+  max-width: 720px;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.provider-statuses {
+  gap: 10px;
+}
+
+.provider-status {
+  gap: 7px;
+  padding: 14px;
+  font-size: 12px;
+}
+
+.provider-status strong {
+  font-size: 13px;
+}
+
+.provider-status-label {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.compare-toolbar {
+  align-items: center;
+  margin: 26px 0 16px;
+  font-size: 15px;
+}
+
+.compare-filters {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.compare-filters label {
+  gap: 8px;
+  font-size: 13px;
+}
+
+.compare-filters select {
+  max-width: 200px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  font-size: 13px;
+}
+
+.comparison-prompt,
+.provider-alert {
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.provider-alert .provider-error-detail,
+.provider-alert .provider-error-detail button {
+  font-size: 13px;
+}
+
+.plan-grid {
+  gap: 20px;
+}
+
+.plan-card {
+  padding: clamp(20px, 2.2vw, 28px);
+  border-radius: 16px;
+}
+
+.plan-card-top {
+  gap: 10px;
+  font-size: 13px;
+}
+
+.cover-badge,
+.tax-badge,
+.calculation-badge,
+.addon-chip {
+  padding: 6px 9px;
+  font-size: 11px;
+}
+
+.plan-card h3 {
+  margin: 14px 0 10px;
+  font-size: clamp(20px, 2vw, 24px);
+  line-height: 1.3;
+}
+
+.plan-price {
+  font-size: clamp(28px, 3vw, 34px);
+}
+
+.plan-price small {
+  font-size: 13px;
+}
+
+.plan-highlights {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 10px;
+}
+
+.plan-highlights > span,
+.plan-validity > span,
+.plan-facts span,
+.plan-addons > span {
+  font-size: 12px;
+}
+
+.plan-highlights ul,
+.plan-benefits,
+.plan-notes,
+.plan-notes ul {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.plan-facts {
+  gap: 12px;
+  margin-top: 16px;
+  padding: 14px 0;
+}
+
+.plan-facts strong {
+  font-size: 15px;
+}
+
+.plan-facts .missing-value {
+  font-size: 11px;
+}
+
+.plan-validity {
+  align-items: center;
+  margin-top: 12px;
+}
+
+.plan-validity strong {
+  font-size: 13px;
+}
+
+.plan-addons {
+  margin-top: 14px;
+}
+
+.plan-addons > div {
+  gap: 7px;
+  margin-top: 8px;
+}
+
+.plan-notes {
+  margin-top: 12px;
+}
+
+.plan-notes summary {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  border-radius: 8px;
+  background: #f8f7f4;
+}
+
+.compare-plan-button,
+.plan-select-button {
+  min-height: 52px;
+  margin-top: 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: transform .16s ease, background-color .16s ease, box-shadow .16s ease;
+}
+
+.compare-plan-button:hover:not(:disabled),
+.plan-select-button:hover:not(:disabled) {
+  box-shadow: 0 7px 16px rgba(22, 163, 74, .16);
+  transform: translateY(-1px);
+}
+
+.selection-banner {
+  position: sticky;
+  z-index: 4;
+  bottom: 14px;
+  align-items: center;
+  gap: 20px;
+  margin-top: 22px;
+  padding: 16px 18px;
+  border-color: #c9e7d2;
+  border-radius: 14px;
+  background: rgba(242, 251, 245, .97);
+  box-shadow: 0 12px 30px rgba(22, 50, 29, .12);
+  font-size: 14px;
+  line-height: 1.5;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.selection-banner > span {
+  min-width: 0;
+}
+
+.selection-banner > span strong {
+  color: #202923;
+}
+
+.selection-banner button {
+  min-height: 50px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  border: 1px solid #111827;
+  border-radius: 10px;
+  color: #fff;
+  background: #111827;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform .16s ease, background-color .16s ease, box-shadow .16s ease;
+}
+
+.selection-banner button:hover {
+  background: #16803f;
+  border-color: #16803f;
+  box-shadow: 0 6px 16px rgba(22, 128, 63, .2);
+  transform: translateY(-1px);
+}
+
+.selection-banner button:focus-visible,
+.compare-filters select:focus-visible,
+.plan-select-button:focus-visible,
+.compare-plan-button:focus-visible {
+  outline: 3px solid rgba(22, 163, 74, .42);
+  outline-offset: 3px;
+}
+
+.comparison-disclaimer {
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.side-compare-heading h3 {
+  font-size: 19px;
+}
+
+.side-compare-heading p {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 14px;
+  font-size: 13px;
+}
+
+.comparison-table thead th > strong {
+  font-size: 15px;
+}
+
+.comparison-table thead th > span,
+.comparison-table thead th > button,
+.comparison-table tbody td small {
+  font-size: 12px;
+}
+
+.secondary-button {
+  min-height: 46px;
+  padding: 0 16px;
+  border-radius: 9px;
+  font-size: 13px;
+}
+
+.dialog-actions .primary-button {
+  min-height: 50px;
+  padding: 0 20px;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .compare-screen {
+    padding: 24px;
+  }
+
+  .compare-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .compare-filters {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .compare-screen {
+    padding: 20px 16px;
+  }
+
+  .compare-heading h2 {
+    font-size: 28px;
+  }
+
+  .compare-heading p:not(.card-kicker) {
+    font-size: 14px;
+  }
+
+  .provider-statuses {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .compare-filters {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .compare-filters label {
+    justify-content: space-between;
+  }
+
+  .compare-filters select {
+    width: min(64%, 280px);
+    max-width: none;
+  }
+
+  .plan-grid {
+    gap: 14px;
+  }
+
+  .plan-card {
+    padding: 20px;
+  }
+
+  .selection-banner {
+    position: sticky;
+    bottom: 8px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .selection-banner button {
+    width: 100%;
+    min-height: 52px;
+  }
+
+  .side-compare {
+    padding: 14px;
+  }
+
+  .side-compare-heading {
+    flex-direction: column;
+  }
+
+  .comparison-table {
+    min-width: 600px;
+  }
+}
+
+@media (max-width: 410px) {
+  .provider-status {
+    padding: 11px;
+  }
+
+  .plan-card {
+    padding: 16px;
+  }
+
+  .plan-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-validity {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
