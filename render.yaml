@@ -2,7 +2,7 @@ services:
   - type: web
     name: autocover
     runtime: node
-    buildCommand: npm ci && npm ci --prefix frontend && npm run build --prefix frontend && npm run typecheck
+    buildCommand: npm ci --include=dev && npm ci --prefix frontend --include=dev && npm run build --prefix frontend && npm run typecheck
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:

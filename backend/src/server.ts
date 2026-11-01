@@ -19,7 +19,7 @@ const vehicles = await loadVehicles(registryPath);
 const configuredPort = process.env.PORT ?? process.env.API_PORT ?? "3001";
 const port = Number(configuredPort);
 if (!Number.isInteger(port) || port < 1 || port > 65_535) {
-  throw new Error("API_PORT must be an integer from 1 to 65535.");
+  throw new Error("PORT (or API_PORT for local development) must be an integer from 1 to 65535.");
 }
 const dataPath = (file: string) => resolve(process.cwd(), "data", file);
 const frontendDist = resolve(process.cwd(), "frontend", "dist");

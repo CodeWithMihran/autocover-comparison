@@ -2,7 +2,9 @@
 
 Car insurance plan comparison using the assignment's supplied vehicle registry and four differently formatted provider sources.
 
-> AutoCover is a local comparison demo. It uses the assignment's fictional source data, with MongoDB-backed mock policy confirmation and a saved-policy dashboard.
+> AutoCover is a comparison demo. It uses the assignment's supplied source data, with MongoDB-backed mock policy confirmation and a saved-policy dashboard.
+
+**Live app:** [autocover-comparison.vercel.app](https://autocover-comparison.vercel.app/) · **API health:** [autocover-comparison.onrender.com/api/health](https://autocover-comparison.onrender.com/api/health) · **Source:** [GitHub repository](https://github.com/CodeWithMihran/autocover-comparison)
 
 ## Stack
 
@@ -21,8 +23,6 @@ data/                     Assignment-provided source files
 docs/                     Data investigation, calculation assumptions and add-on research
 frontend/                 Vite + React + TypeScript application
 frontend/src/types/       Shared contract consumed by the React app
-archive/                  Preserved initial Python prototype; not part of active app
-README2.md                Original assignment README copied from the assignment repo
 ```
 
 ## Requirements
@@ -90,7 +90,7 @@ The free Render web service may sleep after 15 minutes without traffic, so its f
 
 ### Deploy the frontend on Vercel and API on Render
 
-If the frontend is hosted separately on Vercel, deploy a Render web service from this same repository with a blank root directory, build command `npm ci && npm run typecheck`, and start command `npm start`. Add `MONGODB_URI`, `MONGODB_DB_NAME=autocover`, `AUTOCOVER_REFERENCE_DATE=2026-11-10`, `MOCK_PROVIDER_D_FAILURE_RATE=0.12`, `NODE_VERSION=22.12.0`, and `CORS_ORIGINS=https://<your-vercel-domain>` to Render. In Vercel, set `VITE_API_BASE_URL=https://<your-render-service>.onrender.com`, then redeploy the frontend. `VITE_API_BASE_URL` is compiled into the frontend at build time; it should contain only the public API origin, never a secret. The API allows browser requests only from origins listed in `CORS_ORIGINS`.
+If the frontend is hosted separately on Vercel, deploy a Render web service from this same repository with a blank root directory, build command `npm ci --include=dev && npm run typecheck`, and start command `npm start`. Include dev dependencies during the build because the API start script uses `tsx`, and the TypeScript checker is also a dev dependency. Add `MONGODB_URI`, `MONGODB_DB_NAME=autocover`, `AUTOCOVER_REFERENCE_DATE=2026-11-10`, `MOCK_PROVIDER_D_FAILURE_RATE=0.12`, `NODE_VERSION=22.12.0`, and `CORS_ORIGINS=https://<your-vercel-domain>` to Render. In Vercel, set `VITE_API_BASE_URL=https://<your-render-service>.onrender.com`, then redeploy the frontend. `VITE_API_BASE_URL` is compiled into the frontend at build time; it should contain only the public API origin, never a secret. The API allows browser requests only from origins listed in `CORS_ORIGINS`.
 
 ## Verify the project
 

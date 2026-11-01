@@ -1,90 +1,36 @@
-# AI usage log
+# AI usage
 
-This file records AI assistance for this assignment. Keep adding the prompts used during implementation, in order, and review the generated code before submission.
+This log summarizes the AI assistance used to build AutoCover. Generated changes were refined during implementation and checked with the automated checks below. I manually exercised the deployed app and MongoDB-backed flows; I am responsible for understanding and explaining the code during review.
 
-## Tools
+## Tools used
 
-- Claude AI — used by the candidate for an initial assignment breakdown. The original prompt to Claude was not included in the materials shared with Codex, so it cannot be reproduced here.
-- OpenAI Codex desktop (including its web search tool) — used to inspect the copied README/data, implement the investigation notes and parsers, scaffold/repair the Vite app dependencies, and verify the project.
-- Codex computer-use workflow — attempted a local visual preview; the browser could not reach the sandbox's localhost server, so build and lint checks were used instead.
+- **Claude AI** — helped break down the assignment and plan an implementation sequence. The original prompt was not retained, so it is summarized below rather than quoted.
+- **OpenAI Codex desktop** — assisted with source-file inspection, TypeScript implementation and review, debugging, UI work, documentation, and deployment configuration.
+- **Codex web search** — consulted public insurer add-on information for the glossary and official hosting documentation for deployment guidance. URLs used for insurer research are recorded in `docs/addon-glossary.md`.
+- **Codex browser/computer-use** — attempted a local UI preview, but the preview browser could not reach the local development server. The deployed app was subsequently checked manually in the browser.
 
-## Main prompts in this work session
+## Main prompts, in order
 
-1. “What should I name the project and the github repo ??”
-2. “Please understand all the thing in the best way possible and tell me the best next step to do”
-3. “I have added them 
-Please now check all the files in the best way possible”
-4. “## Best next step
+The prompts below are concise summaries of the main requests; routine follow-ups and troubleshooting messages are omitted.
 
-Before building the UI, write a short source investigation note and define your normalized plan fields—including how you represent missing GST, provider declines, quote expiry and Provider C’s calculated premiums. Then implement and verify the parsers against these files. This is the part of the assignment most likely to surface hidden edge cases early.
+1. **Assignment planning (Claude):** summarize the requirements, propose a practical build plan, and recommend a project/repository name.
+2. **Data investigation and parsing (Codex):** inspect all provided files and the assignment README; document source quirks; define a common quote shape; implement parsers using the selected React + TypeScript stack. An initial Python parser prototype followed the suggested stack, but I chose TypeScript for the API as well; that unused prototype was removed before submission.
+3. **Frontend implementation (Codex):** build a polished, responsive AutoCover experience for vehicle lookup, quote comparison, plan selection, and saved policies.
+4. **Assignment coverage review (Codex):** compare the implementation with the assignment requirements and recommend/fill important gaps.
+5. **Explainable comparison and data quality (Codex):** explain plan strengths from supplied values and make missing fields, quote validity, source notes, calculations, and provider errors visible.
+6. **Side-by-side comparison and resilience (Codex):** allow comparison of two or three plans and keep successful provider results available when another provider is slow or fails, with individual retries.
+7. **Database choice (Codex):** replace the initial PostgreSQL direction with MongoDB because it is the database I already use and can confidently explain.
+8. **Persistence (Codex):** save/reopen comparison snapshots and persist mock policy confirmations in MongoDB.
+9. **Code review and bug fixing (Codex):** inspect the full project for parsing, validation, date, API, UI-state, and persistence issues; add regression coverage for identified cases.
+10. **UI refinement (Codex):** improve navigation, landing-page sections, comparison readability, responsive behavior, and the size and prominence of important actions such as “Review & confirm.”
+11. **Deployment (Codex):** prepare Render and Vercel configuration, connect the frontend to the separately hosted API, and document the required environment variables and deployment steps.
+12. **Final submission review (Codex):** remove unused prototype/template files, make this usage log concise and accurate, and perform final lint, type, build, and test checks.
 
+## Verification
 
-
-Can you do this for me please ??
-
-If yes then do it in the best possible way
-
-
-
-I am going to use (React + Typescript) which is preferred by them”
-5. “Why are you using python for development ??
-I have told you to use react and typescript na”
-6. “So what to do next now ??
-What should be the next possible step ??
-Should I initialize react frontend using vite first into the frontend folder ??”
-7. “OXlint or Eslint ??”
-8. “PS D:\Mihran\Official Internship Projects\autocover-comparison> npm create vite@latest frontend -- --template react-ts
-
-Need to install the following packages:
-create-vite@9.3.3
-Ok to proceed? (y) y
-
-> autocover-comparison@1.0.0 npx
-> cva frontend --template react-ts
-
-create-vite v9.3.3
-
-Target directory "frontend" is not empty. Please choose how to proceed: Ignore files and continue
-Which linter to use? ESLint
-Install with npm and start now? Yes
-
-npm error code ERESOLVE
-npm error ERESOLVE unable to resolve dependency tree
-npm error Found: typescript@7.0.2
-npm error Could not resolve dependency: peer typescript@">=4.8.4 <6.1.0" from typescript-eslint@8.72.1”
-9. “Ok then do the nest step in the best possible way and try to make it clean, easy to use all the features and it should classic and good in the best way possible (You can use the color theme in the image I have provided if you want to or add another theme if you have better option)
-Do your best,”
-10. “Okay it is running, What should be the next best step ??”, followed by Codex was asked to implement the quote comparison step using the existing app.
-11. “Can you read the readme or recommend me what should I do and add to make this project best and to be get selected in the internship please
-Do your best”
-12. “Before doing anything else I want you to check the entire codebase for any bugs and errors or logical errors in the best way possible to make the project flawless in every aspect.
-Please do your best to find and fix them in the best way possible”
-13. “I have never used or installed postgreSQL, i have used only MongoDB as a backend ?? Is it necessary to use SQL ?? Can we shift to mongodb ?? I already have mongodb compass and used mongodb atlas for many of my projects”
-14. “Complete these two first in the best way possible and make it flawless: transparent comparison reasons using supplied data, and clear quote/data-quality indicators with source or calculation notes.”
-15. “Now complete these two first in the best way possible and make it flawless: side-by-side comparison of two or three plans, and reliable partial results when a provider is slow or fails.”
-16. “Now complete this feature in the best way possible: Saved comparisons. Let users save a comparison to revisit later, using MongoDB persistence, and make sure saving a confirmed policy works first.”
-17. “Before doing anything else I want you to check the entire codebase for any bugs and errors or logical errors in the best way possible to make the project flawless in every aspect. Please do your best to find and fix them in the best way possible.”
-18. “I want to deploy it also” — Codex inspected the app's runtime and prepared a single-service Render deployment: production frontend serving, public port binding, a Render Blueprint, and deployment steps in the README.
-19. “I have deployed the frontend in Vercel successfully” — Codex updated API URL configuration for a separately hosted frontend, added allow-listed CORS/preflight handling to the API, and documented the Vercel + Render configuration.
-20. “I want to enhance UI/UX more before submission as the main buttons like ‘review & confirm’ are too small. Make the website more easy to use, make things bigger like font and button to appropriate size, and make it look more good.” — Codex improved comparison-screen sizing, text hierarchy, primary-action emphasis, responsive layouts, and focus/hover states.
-
-## Review notes
-
-- Codex initially summarized the assignment without the local files; after the files were added, the actual README and every source were inspected.
-- An initial parser prototype was written in Python based on the assignment's suggested backend stack. After the candidate clarified they wanted React + TypeScript as their chosen stack, that prototype was archived and the active parser/API layer was moved to TypeScript/Node.
-- The active TypeScript parsers use explicit nulls/warnings for missing tax details rather than inventing GST values.
-- Provider C calculations are labeled as indicative and carry documented rounding/age assumptions.
-- The Vite React + TypeScript scaffold installed with a TypeScript 7 range that conflicted with `typescript-eslint`'s declared `<6.1.0` support. The frontend is pinned to TypeScript 6.0.3; build and lint now pass.
-- The AutoCover frontend includes registration lookup, editable vehicle review, provider quote loading, comparison, filtering, sorting, mock confirmation, and a saved-policy dashboard backed by MongoDB. Provider endpoints parse the supplied files; Provider B is delayed and Provider D has configurable intermittent failures.
-- After the user requested an assignment-versus-code review, Codex re-read the copied assignment README, added database policy storage and policy date logic, the add-on glossary using three official insurer pages, add-on filtering and explainable plan standouts, and updated setup/documentation.
-- AI-generated changes were reviewed and corrected where needed: a UI ranking label was changed to honest provider order, unknown add-on meaning stays unknown, quote confirmation re-parses and verifies the selected plan from supplied data, and the leap-day policy-term boundary received a regression test.
-- During the code review pass, Codex tightened date and money parsing, tax-note handling, tax attribution, policy request validation, retryable database initialization, database connection cleanup, quote identity and add-on concept filtering, Provider C effective-date validity, and provider error/warning display. New regression tests cover malformed source fields and boundary validation.
-- After the candidate requested MongoDB based on their experience with MongoDB Compass and Atlas, Codex replaced PostgreSQL persistence with the official MongoDB Node.js driver, configured automatic collection/index setup, removed the SQL migration and Compose database, and rewrote the setup instructions for local MongoDB Server or Atlas.
-- In response to the candidate's request to complete transparent comparison reasons and clearer quote/data-quality indicators, Codex updated plan cards to explain relative premium and IDV strengths only against currently shown, comparable coverage cohorts; listed mapped add-ons and provider-supplied benefits as reasons; exposed quote validity/expiry, missing values, file and calculation basis, warnings, provider errors/retries, and excluded expired quotes.
-- In response to the follow-up feature request, Codex added independent two/three-plan comparison selection and a focused accessible comparison table, distinct from policy selection. Provider requests run concurrently and independently update their provider state; per-provider request versions prevent late responses from overwriting a newer retry or comparison. Statuses show provider-specific failure details and individually labeled retries while successful providers' plans remain visible.
-- In response to the saved-comparisons request, Codex added MongoDB-backed comparison snapshots, validates request shape and re-verifies each plan against its provider's supplied source before saving, lists saved snapshots with policies, and adds a read-only revisit view that labels historical data as a snapshot. Policy persistence remains in its existing collection and route. A live MongoDB integration run still requires the candidate's local MongoDB service or Atlas URI.
-- During the latest full audit, Codex fixed safe-integer handling for parsed money, strict comma grouping, ambiguous Provider A premium/GST representations and malformed JSON rows, ambiguous Provider B tax notes, vehicle expiry-before-registration validation, API port/body-abort handling, provider retry preservation of prior results, independent dashboard loading errors, and selected-source quote verification shared by policy and comparison saves. Added regression tests for these cases and saved-comparison request validation.
-- The app still needs a MongoDB-backed manual run and screenshots or a short demo recording before submission.
-- For deployment, Codex added production static-file serving with SPA fallback, changed the Node server to bind on `0.0.0.0` and honor the host-provided `PORT`, added a Render Blueprint, and documented Atlas setup and free-tier behavior. The production TypeScript check and frontend build passed after these changes.
-- For the separate Vercel frontend deployment, Codex added `VITE_API_BASE_URL` support across frontend API calls, configurable `CORS_ORIGINS` handling for API and preflight requests, and split-host deployment instructions. Set the Vercel and Render origin values before relying on API-backed features.
-- For the final usability pass, Codex enlarged comparison plan typography, provider status and filter controls, plan actions, and the selected-plan confirmation banner; the banner now presents “Review & confirm” as a prominent responsive button. Frontend lint and production build passed.
+- Backend test suite: 17 tests passed in the final audit.
+- Backend TypeScript typecheck: passed.
+- Frontend ESLint: passed.
+- Frontend production build: passed.
+- I manually verified vehicle lookup, provider comparisons, saved comparisons, mock policy confirmation, MongoDB persistence, and the deployed Vercel + Render flow.
+- `npm audit` could not retrieve vulnerability data in the Codex environment because DNS could not resolve `registry.npmjs.org`. Render's frontend install previously reported 12 moderate advisories; review `npm audit --prefix frontend` from a networked machine before submission.
