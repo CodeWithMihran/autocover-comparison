@@ -1,6 +1,8 @@
 import { createServer } from "node:http";
 import { randomUUID } from "node:crypto";
-import { resolve } from "node:path";
+import { existsSync } from "node:fs";
+import { readFile, stat } from "node:fs/promises";
+import { extname, relative, resolve, sep } from "node:path";
 import { normalizeRegistration, referenceDateFromEnv } from "./normalization.js";
 import { loadVehicles } from "./vehicles.js";
 import { closeDatabase, ensureDatabase, getComparisonsCollection, getPoliciesCollection } from "./database.js";
@@ -14,12 +16,24 @@ import type { NormalizedQuote, ProviderParseResult } from "./domain.js";
 
 const registryPath = resolve(process.cwd(), "data/registry.json");
 const vehicles = await loadVehicles(registryPath);
-const configuredPort = process.env.API_PORT ?? "3001";
+const configuredPort = process.env.PORT ?? process.env.API_PORT ?? "3001";
 const port = Number(configuredPort);
 if (!Number.isInteger(port) || port < 1 || port > 65_535) {
   throw new Error("API_PORT must be an integer from 1 to 65535.");
 }
 const dataPath = (file: string) => resolve(process.cwd(), "data", file);
+const frontendDist = resolve(process.cwd(), "frontend", "dist");
+const contentTypes: Record<string, string> = {
+  ".css": "text/css; charset=utf-8",
+  ".html": "text/html; charset=utf-8",
+  ".ico": "image/x-icon",
+  ".js": "text/javascript; charset=utf-8",
+  ".json": "application/json; charset=utf-8",
+  ".png": "image/png",
+  ".svg": "image/svg+xml",
+  ".webp": "image/webp",
+  ".woff2": "font/woff2",
+};
 const providerRoutes: Record<string, (registration: string) => Promise<ProviderParseResult>> = {
   a: (registration) => parseProviderA(dataPath("provider_a.json"), registration),
   b: async (registration) => {
@@ -282,6 +296,55 @@ const server = createServer((request, response) => {
     return;
   }
 
+  if ((request.method === "GET" || request.method === "HEAD") && !url.pathname.startsWith("/api/")) {
+    void (async () => {
+      if (!existsSync(frontendDist)) {
+        response.writeHead(404).end(JSON.stringify({ error: "Frontend build is unavailable." }));
+        return;
+      }
+
+      let requestedPath: string;
+      try {
+        requestedPath = decodeURIComponent(url.pathname);
+      } catch {
+        response.writeHead(400).end(JSON.stringify({ error: "Invalid URL path." }));
+        return;
+      }
+
+      const candidate = resolve(frontendDist, `.${requestedPath}`);
+      const candidateRelativePath = relative(frontendDist, candidate);
+      const isInsideFrontend = candidateRelativePath === "" || (!candidateRelativePath.startsWith(`..${sep}`) && candidateRelativePath !== "..");
+      let filePath = isInsideFrontend ? candidate : resolve(frontendDist, "index.html");
+      try {
+        if (!(await stat(filePath)).isFile()) {
+          if (extname(requestedPath)) {
+            response.writeHead(404).end(JSON.stringify({ error: "Frontend asset not found." }));
+            return;
+          }
+          filePath = resolve(frontendDist, "index.html");
+        }
+      } catch {
+        if (extname(requestedPath)) {
+          response.writeHead(404).end(JSON.stringify({ error: "Frontend asset not found." }));
+          return;
+        }
+        filePath = resolve(frontendDist, "index.html");
+      }
+
+      try {
+        const file = await readFile(filePath);
+        const isIndex = filePath === resolve(frontendDist, "index.html");
+        response.setHeader("Content-Type", contentTypes[extname(filePath)] ?? "application/octet-stream");
+        response.setHeader("Cache-Control", isIndex ? "no-cache" : "public, max-age=31536000, immutable");
+        response.writeHead(200);
+        response.end(request.method === "HEAD" ? undefined : file);
+      } catch {
+        response.writeHead(404).end(JSON.stringify({ error: "Frontend build is unavailable." }));
+      }
+    })();
+    return;
+  }
+
   response.writeHead(404).end(JSON.stringify({ error: "API route not found." }));
 });
 
@@ -289,8 +352,8 @@ function providerNamesForId(id: string): string {
   return `Provider ${id.toUpperCase()}`;
 }
 
-server.listen(port, "127.0.0.1", () => {
-  console.log(`AutoCover API listening at http://127.0.0.1:${port}`);
+server.listen(port, "0.0.0.0", () => {
+  console.log(`AutoCover listening on port ${port}`);
 });
 
 for (const signal of ["SIGINT", "SIGTERM"] as const) {

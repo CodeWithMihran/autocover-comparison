@@ -1,16 +1,19 @@
 :root {
   font-family: Inter, "Aptos", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
-  color: #171716;
+  color: #111827;
   background: #fff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --ink: #171716;
-  --muted: #74716b;
+  --ink: #111827;
+  --muted: #64748b;
   --page: #fff;
-  --gold: #b98c4d;
+  --green: #16a34a;
+  --green-hover: #15803d;
+  --green-light: #f0fdf4;
+  --gold: #16a34a; /* Maps any remaining gold references to emerald green */
 }
 
 * {
@@ -46,13 +49,13 @@ a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  outline: 3px solid rgba(185, 140, 77, .4);
+  outline: 3px solid rgba(22, 163, 74, .35);
   outline-offset: 3px;
 }
 
 ::selection {
-  color: #171716;
-  background: #e8d8bc;
+  color: #14532d;
+  background: #dcfce7;
 }
 
 @media (prefers-reduced-motion: reduce) {

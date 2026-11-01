@@ -76,6 +76,18 @@ Open the URL Vite prints, usually `http://localhost:5173`. Keep both terminals r
 
 On macOS/Linux, use `cp .env.example .env` and `cd frontend` for the corresponding commands. Install/start MongoDB locally or configure Atlas as above.
 
+## Deploy on Render
+
+This repository includes a `render.yaml` Blueprint for a single Node web service. It builds the React frontend and serves it, the API, and the supplied provider files from the same service. MongoDB Atlas stores policies and saved comparisons.
+
+1. Push this repository to your own GitHub account. Make sure `.env` is not tracked (`git check-ignore .env`) and never put the Atlas URI in Git.
+2. In Render, choose **New → Blueprint**, connect your GitHub repository, and deploy the `render.yaml` configuration.
+3. When Render prompts for `MONGODB_URI`, provide your Atlas application's connection string. In Atlas Network Access, allow the hosted service to reach the cluster. For a portfolio demo, restrict access as much as your host's outbound IP setup allows; avoid broad access where possible. Use a database user dedicated to this app with only the permissions it needs.
+4. Wait for the deploy health check at `/api/health` to pass, then open the `onrender.com` URL shown on the service page.
+5. Test vehicle lookup, all four provider results, saving a comparison, confirming a plan, and reloading the saved-items page. Check the Render logs if any API requests fail.
+
+The free Render web service may sleep after 15 minutes without traffic, so its first request after idling can take longer. Its filesystem is temporary; AutoCover keeps saved records in MongoDB Atlas rather than on the service disk. See Render's [free service limitations](https://render.com/docs/free) and [web service port requirements](https://render.com/docs/web-services).
+
 ## Verify the project
 
 From the repository root:

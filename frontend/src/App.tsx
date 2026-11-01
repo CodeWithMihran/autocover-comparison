@@ -314,17 +314,17 @@ function CarIllustration() {
       <path d="m103 177 13-42c5-16 18-27 34-31l72-18c14-4 27-2 39 6l58 39 81 13c16 3 27 14 31 29l9 34H94l9-30Z" fill="#F8F6F2" stroke="#171717" strokeWidth="3" strokeLinejoin="round" />
       <path d="m166 109 58-14c13-3 23-1 34 6l43 30H151l10-15c2-3 3-5 5-7Z" fill="#D8D5CF" stroke="#171717" strokeWidth="2.5" strokeLinejoin="round" />
       <path d="m228 96-8 35m45-30 37 30" stroke="#171717" strokeWidth="2.5" />
-      <path d="M116 161h39m229 9h31" stroke="#B98C4D" strokeWidth="8" strokeLinecap="round" />
+      <path d="M116 161h39m229 9h31" stroke="#16a34a" strokeWidth="8" strokeLinecap="round" />
       <path d="M98 184h353" stroke="#171717" strokeWidth="3" strokeLinecap="round" />
       <circle cx="161" cy="196" r="29" fill="#171717" />
       <circle cx="161" cy="196" r="14" fill="#E7E3DB" />
-      <circle cx="161" cy="196" r="5" fill="#B98C4D" />
+      <circle cx="161" cy="196" r="5" fill="#16a34a" />
       <circle cx="376" cy="196" r="29" fill="#171717" />
       <circle cx="376" cy="196" r="14" fill="#E7E3DB" />
-      <circle cx="376" cy="196" r="5" fill="#B98C4D" />
-      <path d="M133 70c15-20 38-31 65-31m177 2 22-12m-30 47 36 3" stroke="#B98C4D" strokeWidth="2" strokeLinecap="round" strokeDasharray="2 8" />
-      <circle cx="397" cy="43" r="21" fill="#B98C4D" fillOpacity=".14" />
-      <path d="m398 31 10 4v8c0 6-4 10-10 12-6-2-10-6-10-12v-8l10-4Z" fill="#B98C4D" />
+      <circle cx="376" cy="196" r="5" fill="#16a34a" />
+      <path d="M133 70c15-20 38-31 65-31m177 2 22-12m-30 47 36 3" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeDasharray="2 8" />
+      <circle cx="397" cy="43" r="21" fill="#16a34a" fillOpacity=".14" />
+      <path d="m398 31 10 4v8c0 6-4 10-10 12-6-2-10-6-10-12v-8l10-4Z" fill="#16a34a" />
       <path d="m394 42 3 3 6-7" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
